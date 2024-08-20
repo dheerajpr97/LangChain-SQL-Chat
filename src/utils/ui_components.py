@@ -2,7 +2,7 @@ import streamlit as st
 import groq
 import pandas as pd
 from io import BytesIO
-from src.db_utils import configure_db
+from src.utils.db_utils import configure_db
 
 
 def configure_sidebar():
@@ -104,6 +104,11 @@ def export_query_results():
     Adds an export button to the sidebar to allow users to download query results as a CSV file.
     It collects all 'assistant' responses that are assumed to be results from the SQL queries.
     """
+
+    # Initialize messages key if not exists
+    if 'messages' not in st.session_state:
+        st.session_state['messages'] = []
+        
     results = [msg["content"] for msg in st.session_state["messages"] if msg["role"] == "assistant"]
 
     if results:

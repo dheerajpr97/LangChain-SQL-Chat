@@ -1,6 +1,5 @@
 import sqlite3
 from pathlib import Path
-
 import streamlit as st
 from langchain.sql_database import SQLDatabase
 from sqlalchemy import create_engine
@@ -30,7 +29,7 @@ def configure_db(db_uri, mysql_host=None, mysql_user=None, mysql_password=None, 
             st.error(f"SQLite database file not found at {dbfilepath}")
             st.stop()
         creator = lambda: sqlite3.connect(f"file:{dbfilepath}?mode=ro", uri=True)
-        return SQLDatabase(create_engine("sqlite:///", creator=creator))
+        return SQLDatabase(create_engine("sqlite:///", creator=creator, connect_args={"check_same_thread": False}))
     elif db_uri == MYSQL:
         if not (mysql_host and mysql_user and mysql_password and mysql_db):
             st.error("Please provide all MySQL connection details.")
