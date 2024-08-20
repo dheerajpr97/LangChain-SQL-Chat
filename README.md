@@ -38,8 +38,8 @@ Upon launching the Streamlit app, users are presented with the following functio
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/dheerajpr97/E-commerce-llm-integration.git
-   cd E-commerce-llm-integration
+   git clone https://github.com/dheerajpr97/LangChain-SQL-chat.git
+   cd LangChain-SQL-chat
    ```
 
 2. **Install Dependencies**
