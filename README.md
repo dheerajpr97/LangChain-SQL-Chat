@@ -87,10 +87,12 @@ This will launch the app in your default web browser. You can now interact with 
 
 ## Watch the Demo
 
-[SQLite Demonstration Video](https://github.com/user-attachments/assets/a5d723a0-c1ef-411d-8971-3b9e7bafa946)
-The first video demonstrates how to use the E-Commerce database from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) with SQLite. 
+[SQLite Demonstration Video](https://github.com/user-attachments/assets/d602849c-c330-4a1f-8de3-4efc0b0668bf)
 
-[MySQL Demonstration Video](https://github.com/user-attachments/assets/a5d723a0-c1ef-411d-8971-3b9e7bafa946)
+The first video demonstrates how to use the E-Commerce data from [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) with SQLite. 
+
+[MySQL Demonstration Video](https://github.com/user-attachments/assets/cf9232c2-e4a3-4190-a230-3a3650d80fb0)
+
 The second video focuses on utilizing the example SAKILA database within a MySQL environment.
 
 ## Future Developments
