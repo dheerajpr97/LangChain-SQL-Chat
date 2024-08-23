@@ -4,16 +4,18 @@ import pandas as pd
 from io import BytesIO
 from src.utils.db_utils import configure_db
 
-
 def configure_sidebar():
-    """
-    Configures the sidebar for the Streamlit app, including database connection details
-    and the Groq API key input.
-    """
-    radio_opt = ["Use SQLite 3 Database - ecommerce_data.db", "Connect to your MySQL Database"]
-    selected_opt = st.sidebar.radio(label="Choose the DB which you want to chat with:", options=radio_opt)
+    """ Configures the sidebar for the Streamlit app, including database connection details and the Groq API key input."""
+    radio_opt = [
+        "Use SQLite 3 Database - ecommerce_data.db", 
+        "Connect to your MySQL Database", 
+        "Upload Custom SQL Database",
+        "Upload CSV File to Create On-The-Fly DB"
+    ]
+    selected_opt = st.sidebar.radio(label="Choose the DB you want to chat with:", options=radio_opt)
 
     mysql_host = mysql_user = mysql_password = mysql_db = None
+    uploaded_file = None
 
     if radio_opt.index(selected_opt) == 1:
         db_uri = "USE_MYSQL"
@@ -21,6 +23,12 @@ def configure_sidebar():
         mysql_user = st.sidebar.text_input("MySQL User")
         mysql_password = st.sidebar.text_input("MySQL Password", type="password")
         mysql_db = st.sidebar.text_input("MySQL Database")
+    elif radio_opt.index(selected_opt) == 2:
+        db_uri = "CUSTOMDB"
+        uploaded_file = st.sidebar.file_uploader("Upload your SQLite database file", type=["db"])
+    elif radio_opt.index(selected_opt) == 3:
+        db_uri = "CSVDB"
+        uploaded_file = st.sidebar.file_uploader("Upload your CSV file", type=["csv"])
     else:
         db_uri = "USE_LOCALDB"
 
@@ -29,7 +37,9 @@ def configure_sidebar():
     st.sidebar.markdown("---")
     export_query_results()  # Place the export button in the sidebar
 
-    return db_uri, mysql_host, mysql_user, mysql_password, mysql_db, api_key
+    return db_uri, mysql_host, mysql_user, mysql_password, mysql_db, api_key, uploaded_file
+
+
 
 
 def configure_chat_interface(agent):
@@ -66,11 +76,11 @@ def configure_chat_interface(agent):
                 st.session_state.messages.append({"role": "assistant", "content": response})
                 st.write(response)
 
-def configure_db_connection(db_uri, mysql_host, mysql_user, mysql_password, mysql_db):
+def configure_db_connection(db_uri, mysql_host, mysql_user, mysql_password, mysql_db, uploaded_file):
     """
     Configures the database connection based on the selected database type.
     """
-    db = configure_db(db_uri, mysql_host, mysql_user, mysql_password, mysql_db)
+    db = configure_db(db_uri, mysql_host, mysql_user, mysql_password, mysql_db, uploaded_file)
     return db
 
 
@@ -80,7 +90,7 @@ def display_help():
     """
     with st.sidebar.expander("Help", expanded=False):
         st.write("""
-            - **Database Options**: Choose the appropriate database type.
+            - **Database Options**: Choose the appropriate database type. 
             - **API Key**: Ensure you provide the correct Groq API key to interact with the LLM.
             - **User Queries**: Type your queries in the chat input box.
         """)
