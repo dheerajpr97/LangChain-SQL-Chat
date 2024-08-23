@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 
 project_structure.py
-db/*
+*.db
 *.mp4
 queries.txt
+datasets/*
