@@ -1,9 +1,9 @@
 groq==0.9.0
 langchain==0.2.14
 langchain_groq==0.1.9
+langchain_community 
 pandas==2.2.2
 SQLAlchemy==2.0.32
-streamlit==1.37.1
-sqlite3
+streamlit==1.37.1   
 matplotlib
 seaborn
